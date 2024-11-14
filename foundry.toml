@@ -3,10 +3,14 @@ solc = "0.8.27"
 src = "src"
 out = "out"
 libs = ["dependencies"]
-remappings = ["forge-std/=dependencies/forge-std-1.9.2/src/"]
+remappings = [
+    "forge-std/=dependencies/forge-std-1.9.4/src/",
+    "openzeppelin/=dependencies/@openzeppelin-contracts-5.1.0/",
+]
 
 [dependencies]
-forge-std = { version = "1.9.2" }
+forge-std = { version = "1.9.4" }
+"@openzeppelin-contracts" = { version = "5.1.0" }
 
 [soldeer]
 remappings_generate = false
