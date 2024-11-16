@@ -7,7 +7,7 @@ all: clean remove install update build
 # ---------- dependencies ----------
 remove :; rm -rf dependencies/ && rm -rf soldeer.lock && rm -rf lib/
 install :; forge soldeer install && forge install
-update:; forge soldeer update &&forge update
+update:; forge soldeer update && forge update
 
 # ---------- build ----------
 build :; forge build
@@ -51,3 +51,4 @@ NETWORK_ARGS_ANVIL := --rpc-url http://localhost:8545 --private-key $(PRIVATE_KE
 NETWORK_ARGS_SEPOLIA := --rpc-url $(RPC_URL_SEPOLIA) --account $(ACCOUNT_DEV) --sender $(PUBLIC_KEY_DEV) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
 
 generate-input :; forge script script/GenerateInput.s.sol:GenerateInput
+make-merkle :; forge script script/MakeMerkle.s.sol:MakeMerkle
