@@ -3,6 +3,10 @@ solc = "0.8.27"
 src = "src"
 out = "out"
 libs = ["lib"]
+fs_permissions = [
+    { access = "read", path = "./broadcast" },
+    { access = "read-write", path = "./script/target/" },
+]
 remappings = [
     "forge-std/=dependencies/forge-std-1.9.4/src/",
     "openzeppelin/=dependencies/@openzeppelin-contracts-5.1.0/",
