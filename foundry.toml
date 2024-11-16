@@ -2,10 +2,11 @@
 solc = "0.8.27"
 src = "src"
 out = "out"
-libs = ["dependencies"]
+libs = ["lib"]
 remappings = [
     "forge-std/=dependencies/forge-std-1.9.4/src/",
     "openzeppelin/=dependencies/@openzeppelin-contracts-5.1.0/",
+    "murky/=lib/murky/",
 ]
 
 [dependencies]

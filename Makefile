@@ -5,9 +5,9 @@
 all: clean remove install update build
 
 # ---------- dependencies ----------
-remove :; rm -rf dependencies/ && rm soldeer.lock
-install :; forge soldeer install
-update:; forge soldeer update
+remove :; rm -rf dependencies/ && rm -rf soldeer.lock && rm -rf lib/
+install :; forge soldeer install && forge install
+update:; forge soldeer update &&forge update
 
 # ---------- build ----------
 build :; forge build
