@@ -52,3 +52,7 @@ NETWORK_ARGS_SEPOLIA := --rpc-url $(RPC_URL_SEPOLIA) --account $(ACCOUNT_DEV) --
 
 generate-input :; forge script script/GenerateInput.s.sol:GenerateInput
 make-merkle :; forge script script/MakeMerkle.s.sol:MakeMerkle
+
+DEPLOY_MERKLE_AIRDROP := forge script script/DeployMerkleAirdrop.s.sol:DeployMerkleAirdrop
+deploy :; $(DEPLOY_MERKLE_AIRDROP) $(NETWORK_ARGS_ANVIL)
+deploy-sepolia :; $(DEPLOY_MERKLE_AIRDROP) $(NETWORK_ARGS_SEPOLIA)
