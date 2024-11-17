@@ -9,7 +9,7 @@ PRIVATE_KEY_ANVIL_0 := 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7
 ADDRESS_ANVIL_0 := 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
 PRIVATE_KEY_ANVIL_1 := 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
 ADDRESS_ANVIL_1 := 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
-RPC_URL_ANVL := http://localhost:8545
+RPC_URL_ANVIL := http://localhost:8545
 
 # ---------- foundry ----------
 up :; foundryup
@@ -63,7 +63,7 @@ generate-input :; forge script script/GenerateInput.s.sol:GenerateInput
 make-merkle :; forge script script/MakeMerkle.s.sol:MakeMerkle
 
 DEPLOY_MERKLE_AIRDROP := forge script script/DeployMerkleAirdrop.s.sol:DeployMerkleAirdrop
-NETWORK_ARGS_ANVIL := --rpc-url $(RPC_URL_ANVL) --private-key $(PRIVATE_KEY_ANVIL_0) --broadcast
+NETWORK_ARGS_ANVIL := --rpc-url $(RPC_URL_ANVIL) --private-key $(PRIVATE_KEY_ANVIL_0) --broadcast
 NETWORK_ARGS_SEPOLIA := --rpc-url $(RPC_URL_SEPOLIA) --account $(ACCOUNT_DEV) --sender $(ADDRESS_DEV) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
 deploy :; $(DEPLOY_MERKLE_AIRDROP) $(NETWORK_ARGS_ANVIL)
 deploy-sepolia :; $(DEPLOY_MERKLE_AIRDROP) $(NETWORK_ARGS_SEPOLIA)
@@ -73,10 +73,10 @@ TOKEN_ADDRESS_ANVIL := 0x5FbDB2315678afecb367f032d93F642f64180aa3
 AIRDROP_AMOUNT := 25000000000000000000
 
 sign :; 
-	@cast wallet sign --no-hash --private-key $(PRIVATE_KEY_ANVIL_0) $(shell cast call $(AIRDROP_ADDRESS_ANVIL) "getMessageHash(address,uint256)" $(ADDRESS_ANVIL_0) $(AIRDROP_AMOUNT) --rpc-url $(RPC_URL_ANVL))
+	@cast wallet sign --no-hash --private-key $(PRIVATE_KEY_ANVIL_0) $(shell cast call $(AIRDROP_ADDRESS_ANVIL) "getMessageHash(address,uint256)" $(ADDRESS_ANVIL_0) $(AIRDROP_AMOUNT) --rpc-url $(RPC_URL_ANVIL))
 
 claim:;
-	@forge script script/Interact.s.sol:ClaimAirdrop --sender $(ADDRESS_ANVIL_1) --rpc-url $(RPC_URL_ANVL) --private-key $(PRIVATE_KEY_ANVIL_1) --broadcast
+	@forge script script/Interact.s.sol:ClaimAirdrop --sender $(ADDRESS_ANVIL_1) --rpc-url $(RPC_URL_ANVIL) --private-key $(PRIVATE_KEY_ANVIL_1) --broadcast
 
 balance :; 
-	@cast --to-dec $(shell cast call $(TOKEN_ADDRESS_ANVIL) "balanceOf(address)" $(ADDRESS_ANVIL_0) --rpc-url $(RPC_URL_ANVL))
+	@cast --to-dec $(shell cast call $(TOKEN_ADDRESS_ANVIL) "balanceOf(address)" $(ADDRESS_ANVIL_0) --rpc-url $(RPC_URL_ANVIL))
