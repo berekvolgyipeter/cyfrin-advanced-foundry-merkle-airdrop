@@ -11,12 +11,13 @@ import { DeployMerkleAirdrop } from "script/DeployMerkleAirdrop.s.sol";
 contract MerkleAirdropTest is Test, ZkSyncChainChecker {
     MerkleAirdrop airdrop;
     BagelToken token;
+    address gasPayer;
     address user;
     uint256 userPrivKey;
 
     bytes32 merkleRoot = 0xaa5d581231e596618465a56aa0f5870ba6e20785fe436d5bfb82b08662ccc7c4;
-    uint256 amountToCollect = 25 ether;
-    uint256 amountToSend = amountToCollect * 4; // 4 addresses are whitelisted
+    uint256 amountToClaim = 25 ether;
+    uint256 amountToSend = amountToClaim * 4; // 4 addresses are whitelisted
 
     // proofs of the first input address in the generated merkle tree
     bytes32 proofOne = 0x0fd7c981d39bece61f7499702bf59b3114a90e66b51ba2c53abdf7b62986c00a;
@@ -36,16 +37,24 @@ contract MerkleAirdropTest is Test, ZkSyncChainChecker {
 
         // this is used as the first input address of the merkle tree generation in scripts
         (user, userPrivKey) = makeAddrAndKey("user");
+        gasPayer = makeAddr("gasPayer");
+    }
+
+    function signMessage(uint256 privKey, address account) public view returns (uint8 v, bytes32 r, bytes32 s) {
+        bytes32 hashedMessage = airdrop.getMessageHash(account, amountToClaim);
+        (v, r, s) = vm.sign(privKey, hashedMessage);
     }
 
     function testUsersCanClaim() public {
         uint256 startingBalance = token.balanceOf(user);
 
-        vm.prank(user);
-        airdrop.claim(user, amountToCollect, proof);
+        (uint8 v, bytes32 r, bytes32 s) = signMessage(userPrivKey, user);
+
+        vm.prank(gasPayer);
+        airdrop.claim(user, amountToClaim, proof, v, r, s);
 
         uint256 endingBalance = token.balanceOf(user);
         console.log("Ending balance: %d", endingBalance);
-        assertEq(endingBalance - startingBalance, amountToCollect);
+        assertEq(endingBalance - startingBalance, amountToClaim);
     }
 }
