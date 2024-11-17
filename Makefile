@@ -4,6 +4,10 @@
 
 all: clean remove install update build
 
+# ---------- foundry ----------
+up :; foundryup
+zk-up :; foundryup-zksync
+
 # ---------- dependencies ----------
 remove :; rm -rf dependencies/ && rm -rf soldeer.lock && rm -rf lib/
 install :; forge soldeer install && forge install
@@ -11,6 +15,7 @@ update:; forge soldeer update && forge update
 
 # ---------- build ----------
 build :; forge build
+zk-build :; forge build --zksync
 clean :; forge clean && rm -rf cache/
 
 # ---------- tests ----------
@@ -18,6 +23,7 @@ TEST := forge test -vvv
 TEST_UNIT := $(TEST) --match-path "test/unit/*.t.sol"
 
 test :; $(TEST)
+zk-test :; $(TEST) --zksync
 test-unit :; $(TEST_UNIT)
 test-unit-fork-sepolia :; $(TEST_UNIT) --fork-url $(RPC_URL_SEPOLIA)
 test-unit-fork-mainnet :; $(TEST_UNIT) --fork-url $(RPC_URL_MAINNET)
