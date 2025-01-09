@@ -7,7 +7,7 @@ import { BagelToken } from "src/BagelToken.sol";
 import { MerkleAirdrop, IERC20 } from "src/MerkleAirdrop.sol";
 
 contract DeployMerkleAirdrop is Script {
-    // root of the generate merkle tree
+    // root of the generated merkle tree (see ./target/uotput.json)
     bytes32 public constant ROOT = 0xaa5d581231e596618465a56aa0f5870ba6e20785fe436d5bfb82b08662ccc7c4;
     // 4 users, 25 Bagel tokens each
     uint256 public constant AMOUNT_TO_TRANSFER = 4 * 25 ether;

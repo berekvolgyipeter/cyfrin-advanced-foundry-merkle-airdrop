@@ -68,13 +68,14 @@ NETWORK_ARGS_SEPOLIA := --rpc-url $(RPC_URL_SEPOLIA) --account $(ACCOUNT_DEV) --
 deploy :; $(DEPLOY_MERKLE_AIRDROP) $(NETWORK_ARGS_ANVIL)
 deploy-sepolia :; $(DEPLOY_MERKLE_AIRDROP) $(NETWORK_ARGS_SEPOLIA)
 
-AIRDROP_ADDRESS_ANVIL := 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-TOKEN_ADDRESS_ANVIL := 0x5FbDB2315678afecb367f032d93F642f64180aa3
+AIRDROP_ADDRESS_ANVIL := 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512  # Please update this address if a new airdrop contract is deployed
+TOKEN_ADDRESS_ANVIL := 0x5FbDB2315678afecb367f032d93F642f64180aa3 # Please update this address if a new token is deployed
 AIRDROP_AMOUNT := 25000000000000000000
 
 sign :; 
 	@cast wallet sign --no-hash --private-key $(PRIVATE_KEY_ANVIL_0) $(shell cast call $(AIRDROP_ADDRESS_ANVIL) "getMessageHash(address,uint256)" $(ADDRESS_ANVIL_0) $(AIRDROP_AMOUNT) --rpc-url $(RPC_URL_ANVIL))
 
+# NOTE: the SIGNATURE constant has to be updated in the script if any parameter changes in the signing
 claim:;
 	@forge script script/Interact.s.sol:ClaimAirdrop --sender $(ADDRESS_ANVIL_1) --rpc-url $(RPC_URL_ANVIL) --private-key $(PRIVATE_KEY_ANVIL_1) --broadcast
 

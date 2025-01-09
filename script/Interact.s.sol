@@ -10,12 +10,13 @@ contract ClaimAirdrop is Script {
     address private constant CLAIMING_ADDRESS = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     uint256 private constant AMOUNT_TO_CLAIM = 25 ether;
 
-    // generated proofs for anvil address 0
+    // generated proofs for anvil address 0 (see ./target/uotput.json)
     bytes32 private constant PROOF_ONE = 0xd1445c931158119b00449ffcac3c947d028c0c359c34a6646d95962b3b55c6ad;
     bytes32 private constant PROOF_TWO = 0xe5ebd1e1b5a5478a944ecab36a9a954ac3b6b8216875f6524caa7a1d87096576;
     bytes32[] private proof = [PROOF_ONE, PROOF_TWO];
 
     // the signature will change every time you redeploy the airdrop contract!
+    // (see deploy & interact section in Makefile)
     bytes private SIGNATURE =
         hex"04209f8dfd0ef06724e83d623207ba8c33b6690e08772f8887a4eaf9a66b9182188938adea374fa542ad5ddde24bdc981f5e26a628e65fb425a68db8a938f6761c";
 
