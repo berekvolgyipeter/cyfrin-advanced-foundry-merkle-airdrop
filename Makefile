@@ -16,9 +16,9 @@ up :; foundryup
 zk-up :; foundryup-zksync
 
 # ---------- dependencies ----------
-remove :; rm -rf dependencies/ && rm -rf soldeer.lock && rm -rf lib/
-install :; forge soldeer install && forge install
-update:; forge soldeer update && forge update
+uninstall :; rm -rf dependencies/ && rm -rf soldeer.lock
+install :; forge soldeer install
+update:; forge soldeer update
 
 # ---------- build ----------
 build :; forge build
