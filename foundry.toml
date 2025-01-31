@@ -18,7 +18,7 @@ remappings = [
 forge-std = { version = "1.9.4" }
 foundry-devops = { version = "0.2.2" }
 "@openzeppelin-contracts" = { version = "5.1.0" }
-"murky" = { version = "0.1.0", git = "https://github.com/dmfxyz/murky.git" }
+"murky" = { version = "0.1.0", git = "https://github.com/dmfxyz/murky.git", tag = "v0.1.0" }
 
 [soldeer]
 remappings_generate = false
