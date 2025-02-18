@@ -53,10 +53,7 @@ contract MerkleAirdrop is EIP712 {
             revert MerkleAirdrop__InvalidSignature();
         }
 
-        // If an attacker were to find two different inputs that produce the same hash (a collision)
-        // with a single hash function, they could potentially manipulate data in a Merkle tree.
-        // Double hashing makes it significantly harder to find two inputs that collide at the leaf level,
-        // as it requires collisions for two different rounds of hashing.
+        // prevent second preimage attacks -> double hash leaves
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(account, amount))));
         if (!MerkleProof.verify(merkleProof, i_merkleRoot, leaf)) {
             revert MerkleAirdrop__InvalidProof();
@@ -85,7 +82,7 @@ contract MerkleAirdrop is EIP712 {
     // verify whether the recovered signer is the expected signer/the account to airdrop tokens for
     function _isValidSignature(
         address signer,
-        bytes32 digest,
+        bytes32 digest, // EIP-721 message hash
         uint8 _v,
         bytes32 _r,
         bytes32 _s
